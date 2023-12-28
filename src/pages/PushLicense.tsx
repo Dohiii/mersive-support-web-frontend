@@ -36,7 +36,7 @@ export default function PushLicense() {
 
   const [loading, setLoading] = useState(false);
 
-  const { selectedFile, setFile } = useLicenseContext();
+  const { selectedFile } = useLicenseContext();
 
   useEffect(() => {
     // Update pathToLicenseInput when selectedFile changes
