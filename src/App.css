@@ -4,9 +4,10 @@
   /* padding: 2rem; */
   text-align: center;
   height: 100vh;
-  font-family: "Lato", sans-serif;
-  background-color: #fff;
+  font-family: 'Lato', sans-serif;
 }
+
+
 
 *,
 *:focus,
@@ -25,12 +26,13 @@ p {
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
+
 }
 
 .header-container p {
   font-size: 20px;
 }
-.header-container {
+.header-container{
   margin-bottom: 2px;
 }
 
@@ -55,6 +57,7 @@ h2 {
   font-size: 30px;
   color: #333;
 }
+
 
 button {
   border: none;
@@ -146,6 +149,7 @@ button:hover {
   color: #a1403e;
 }
 
+
 /* input{
   padding: 0.8rem 1rem;
   margin-bottom: 1rem;
@@ -178,8 +182,8 @@ button:hover {
 }
 
 .device-field-error-true::placeholder {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
   opacity: 0.5;
   color: #e17d80;
 }
@@ -189,11 +193,12 @@ button:hover {
 }
 
 input::placeholder {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
   opacity: 0.5;
-  color: rgb(113, 113, 113);
+  color: rgb(88, 87, 87);
 }
+
 
 input:focus {
   border: 1px solid rgb(38, 37, 37);
@@ -221,6 +226,9 @@ input:focus {
   font-weight: 700;
 }
 
+
+
+
 @media screen and (max-width: 800px) {
   .main-container {
     flex-direction: column;
@@ -230,6 +238,7 @@ input:focus {
     width: 300px;
   }
 }
+
 
 .card {
   padding: 2em;
