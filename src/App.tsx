@@ -1,21 +1,25 @@
-import Header from "./components/Header";
-import DownloadLicense from "./pages/DownloadLicense";
-import PushLicense from "./pages/PushLicense";
-import MainContainer from "./components/MainContainer";
+import Header from './components/Header'
+import DownloadLicense from './pages/DownloadLicense';
+import MainContainer from './components/MainContainer';
 
-import "./App.css";
+
+
+
+import './App.css'
 
 function App() {
+
   return (
     <>
-      <Header />
+    <Header/>
       <MainContainer>
-        <DownloadLicense />
-        <hr />
-        <PushLicense />
+        <DownloadLicense/>
+          {/* <hr />   
+        <PushLicense/> */}
       </MainContainer>
+
     </>
-  );
+  )
 }
 
-export default App;
+export default App

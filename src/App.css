@@ -34,6 +34,7 @@ p {
 }
 .header-container{
   margin-bottom: 2px;
+  max-width: 900px;
 }
 
 p {
@@ -45,6 +46,8 @@ p {
   flex-direction: row;
   flex-grow: 1;
   flex-basis: 0;
+  align-content: center;
+  justify-content: center;
 }
 
 .card {
@@ -202,6 +205,14 @@ input::placeholder {
 
 input:focus {
   border: 1px solid rgb(38, 37, 37);
+}
+
+.message-contatiner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 600px;
 }
 
 .error-text {

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import HelpIcon from '@mui/icons-material/Help';
 import { saveAs } from 'file-saver';
 import MessageText from '../components/MessageText';
-import JSZip from 'jszip';
 import SolsticeInfoTooltip from '../components/SolsticeInfoTooltip';
 import { useLicenseContext } from './LicenseContext';
 
@@ -12,6 +11,10 @@ export default function DownloadLicense() {
     const [messageTextValue, setMessageTextValue] = useState('');
     const [messageSuccess, setMessageSuccess] = useState(false);
     const [messageHide, setMessageHide] = useState(true);
+
+    const [errorMessageTextValue, setErrorMessageTextValue] = useState('');
+    const [errorMessageSuccess, setErrorMessageSuccess] = useState(false);
+    const [errorMessageHide, setErrorMessageHide] = useState(true);
 
     const [loading, setLoading] = useState(false);
 
@@ -32,13 +35,25 @@ export default function DownloadLicense() {
     };
 
     const handleErrorMessage = (messageSuccess: boolean, deviceIdsInputError: boolean, MessageHide: boolean, text: string) => {
-        setMessageSuccess(messageSuccess);
+        setErrorMessageSuccess(messageSuccess);
         setDeviceIdsInputError(deviceIdsInputError);
-        setMessageHide(MessageHide);
+        setErrorMessageHide(MessageHide);
+        setErrorMessageTextValue(text);
+    }
+
+    const successDownloadLicense = (text: string) => {
+        setDeviceIdsInput('')
+        setDeviceIdsInputError(false);
         setMessageTextValue(text);
+        setMessageSuccess(true);
+        setMessageHide(false);
     }
 
     const handleDownloadClick = async () => {
+        setErrorMessageHide(true)
+        setMessageHide(true)
+        
+
         if (deviceIdsInput.length <= 0) {
             handleErrorMessage(false, true, false, "Please enter a valid Serial Number or Device Id and try again.")
             return
@@ -54,12 +69,26 @@ export default function DownloadLicense() {
         };
 
         try {
-
             setLoading(true)
-            if (deviceIdsArray.length === 1) {
-                // Existing logic for a single file
-                const deviceId = deviceIdsArray[0];
-                const licenseJson = { "keplerId": deviceId };
+
+            let successDownload = 0
+            let failedDownload = 0
+
+            let failedDownlodArr = []
+            let successDownloadArr = []
+
+            // Loop through each device ID in the array
+            for (const deviceId of deviceIdsArray) {
+
+                let licenseJson: { keplerId?: string; serialId?: string } = {};
+
+                if (deviceId.startsWith("MPOD") || deviceId.startsWith("mpod")) {
+                    licenseJson.serialId = deviceId.toUpperCase();
+                } else {
+                    licenseJson.keplerId = deviceId.toLowerCase();
+                }
+
+
 
                 const response = await fetch(`${URL}/license/license`, {
                     method: "POST",
@@ -67,69 +96,52 @@ export default function DownloadLicense() {
                     body: JSON.stringify(licenseJson)
                 });
 
+
                 if (response.status === 404) {
-                    handleErrorMessage(false, true, false, `Cannot download license file for - ${deviceIdsInput} If you are sure it is correct Serial Number or Device ID, please contact support@mersive.com`)
                     setLoading(false)
-                    return
+                    failedDownlodArr.push(deviceId)
+                    failedDownload ++
+                    continue
                 }
 
 
                 const licenseFile = await response.text();
+                licenseJson = {};
                 setLoading(false)
-                saveFile(licenseFile, `mcl_${deviceId}.bin`, 'application/octet-stream').then(function () { successDownloadLicense() })
-                
-
-            } else {
-                
-                // If multiple device IDs are provided, create a zip file
-                const zip = new JSZip();
-
-                // Loop through each device ID in the array
-                for (const deviceId of deviceIdsArray) {
-                    const licenseJson = { "keplerId": deviceId };
-
-                    const response = await fetch(`${URL}/license/license`, {
-                        method: "POST",
-                        headers: headers,
-                        body: JSON.stringify(licenseJson)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-
-                    const content = await response.text();
-
-                    // Add file to the zip
-                    zip.file(`mcl_${deviceId}.bin`, content, { binary: true });
-                }
-
-                // Generate the zip file
-                zip.generateAsync({ type: "blob" }).then((blob) => {
-                    // Save the zip file
-                    saveAs(blob, 'multiple_files.zip');
-                });
-                setLoading(false)
+                saveFile(licenseFile, `mcl_${deviceId}.bin`, 'application/octet-stream')
+                successDownloadArr.push(deviceId)
+                successDownload++
             }
+
+            if(successDownloadArr.length === 0){
+                handleErrorMessage(false, true, false, `Cannot download license file for - ${failedDownlodArr.join(', ')} If you are sure it is correct Serial Number or Device ID, please contact support@mersive.com`)
+            }
+
+            if(failedDownlodArr.length === 0){
+                successDownloadLicense(`${successDownload} license files successfully downloaded: ${successDownloadArr.join(', ')}`)
+
+
+            }
+
+            if (successDownloadArr.length > 0 && failedDownlodArr.length > 0){
+                successDownloadLicense(`${successDownload} license files succesfully downloaded ${successDownloadArr.join(', ')}`)
+                handleErrorMessage(false, true, false, `Cannot download license file for - ${failedDownlodArr.join(', ')} If you are sure it is correct Serial Number or Device ID, please contact support@mersive.com`)
+            }
+
+
         } catch (error: any) {
             console.error('Error:', error.message);
             console.log(error)
         }
     };
 
-    const successDownloadLicense = () => {
-        setDeviceIdsInput('')
-        setDeviceIdsInputError(false);
-        setMessageTextValue(`License successfully downloaded`);
-        setMessageSuccess(true);
-        setMessageHide(true);
-    }
+
 
     const saveFile = (content: any, fileName: string, fileType: any) => {
         const blob = new Blob([content], { type: fileType });
         return new Promise(resolve => {
             saveAs(blob, fileName);
-            setFile({file: blob, name:fileName }); // Set the file in the context
+            setFile({ file: blob, name: fileName }); // Set the file in the context
             return resolve(true);
         });
 
@@ -149,11 +161,13 @@ export default function DownloadLicense() {
                     onChange={handleInputChange}
                 />
                 <span>
-                    <SolsticeInfoTooltip open={open} onClose={handleClose} onOpen={handleOpen} title={<p style={{ color: "white", fontSize: "small" }}>Solstice Dashboard for Enterprise Edition is a centralized management tool that can be used to
-                        monitor, configure, and update Solstice Enterprise Edition Pods and Windows Software instances on a
-                        network. While each Solstice display can be configured individually via its local configuration panel,
-                        Solstice Dashboard streamlines the deployment process and allows IT administrators to manage their
-                        deployment from a central location.
+                    <SolsticeInfoTooltip open={open} onClose={handleClose} onOpen={handleOpen} title={<p style={{ color: "white", fontSize: "small" }}>
+                        If you have easy access to the physical Pod, you can locate the <b>Serial Number (S/N)</b>  on the printed sticker on the bottom of the Pod, the serial number starts with the letters "MPOD".
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        If you don't have access to the Pod, and the Pod was being managed previously, instead of the Serial Number the Pod's <b>Device ID</b>  can be retrieved from Solstice Dashboard under the Licensing tab \ Device Info, or can be found in Solstice Cloud under Monitor \ Deployment.
+
                     </p>} placement="top">
                         <HelpIcon className={`icon icon-error-${deviceIdsInputError}`} />
 
@@ -168,12 +182,18 @@ export default function DownloadLicense() {
                 Download
             </button>}
 
-            
+
 
             <MessageText
                 text={messageTextValue}
                 success={messageSuccess}
                 hide={messageHide}
+            />  
+            
+            <MessageText
+                text={errorMessageTextValue}
+                success={errorMessageSuccess}
+                hide={errorMessageHide}
             />
         </div>
     );
