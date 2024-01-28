@@ -170,11 +170,13 @@ export default function DownloadLicense() {
     });
   };
 
-  const deviceInfoText =
-    "Device ID can be retrieved:\n\n" +
-    "- Solstice Dashboard under the Licensing tab > Device Info.\n" +
-    "- Solstice Cloud under Monitor > Deployment.\n" +
-    "- Directly from the Pod’s “Update and Licensing” configuration settings tab";
+  const deviceInfoText = `
+  Device ID can be retrieved:
+
+  - Solstice Dashboard under the Licensing tab > Device Info.
+  - Solstice Cloud under Monitor > Deployment.
+  - Directly from the Pod’s “Update and Licensing” configuration settings tab
+`;
 
   return (
     <div className="card">
