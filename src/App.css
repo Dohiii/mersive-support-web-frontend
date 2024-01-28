@@ -54,6 +54,10 @@ p {
   max-width: 550px;
 }
 
+.card-text {
+  max-width: 800px;
+}
+
 h2 {
   font-size: 30px;
   color: #333;
