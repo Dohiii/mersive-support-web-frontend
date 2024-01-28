@@ -1,4 +1,10 @@
-const CardText = ({ text }) => {
+import React from "react";
+
+interface CardTextProps {
+  text: string;
+}
+
+const CardText: React.FC<CardTextProps> = ({ text }) => {
   return <p className="card-text">{text}</p>;
 };
 
