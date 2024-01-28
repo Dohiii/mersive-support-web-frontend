@@ -173,24 +173,7 @@ export default function DownloadLicense() {
   return (
     <div className="card">
       <h2>Download licenses</h2>
-      <p>
-        "Utilize this tool to download one or multiple license files for Mersive
-        Pods running Solstice version 5.5.3 or higher.
-        <br />" + "Please enter the Pod Device IDs or Serial Numbers in the
-        input field. You can separate multiple entries using spaces, commas, or
-        semicolons.
-        <br />" + "You can choose to save the license files to the root of a
-        FAT32 formatted USB flash drive in order to force load them onto the
-        Pods.
-        <br />" + "Once saved, insert the drive into the Pod's USB port to
-        force-load the license.
-        <br />" + "If multiple Pods are being updated, you can save multiple
-        license files to the same USB drive.
-        <br />" + "The USB flash drive MUST be inserted into an already fully
-        powered up Pod.
-        <br />" + "If booting up the Pod, DO NOT have the flash drive in it.
-        Wait until you see the standard Pod Welcome screen background."
-      </p>
+      <p>Test</p>
 
       <div className="input-icons">
         <input
@@ -205,7 +188,21 @@ export default function DownloadLicense() {
             open={open}
             onClose={handleClose}
             onOpen={handleOpen}
-            title={<p style={{ color: "white", fontSize: "small" }}></p>}
+            title={
+              <p style={{ color: "white", fontSize: "small" }}>
+                If you have easy access to the physical Pod, you can locate the{" "}
+                <b>Serial Number (S/N)</b> on the printed sticker on the bottom
+                of the Pod, the serial number starts with the letters "MPOD".
+                <br></br>
+                <br></br>
+                <br></br>
+                If you don't have access to the Pod, and the Pod was being
+                managed previously, instead of the Serial Number the Pod's{" "}
+                <b>Device ID</b> can be retrieved from Solstice Dashboard under
+                the Licensing tab \ Device Info, or can be found in Solstice
+                Cloud under Monitor \ Deployment.
+              </p>
+            }
             placement="top"
           >
             <HelpIcon className={`icon icon-error-${deviceIdsInputError}`} />
