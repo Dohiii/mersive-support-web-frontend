@@ -27,12 +27,17 @@ p {
 }
 
 .header-container p {
-  font-size: 12px;
+  font-size: 14px;
   color: rgb(84, 82, 82);
+  font-size: medium;
 }
 .header-container {
   margin-bottom: 2px;
   max-width: 900px;
+}
+
+.header-container h6 {
+  font-size: 18px;
 }
 
 .main-container {
