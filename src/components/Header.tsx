@@ -8,10 +8,10 @@ export default function Header() {
   return (
     <div className="header-container">
       <img src={solsticeLogo} className="logo" alt="Vite logo" />
-      <p>
+      <h8>
         Utilize this tool to download one or multiple license files for Mersive
         Pods running Solstice version 5.5.3 or higher
-      </p>
+      </h8>
 
       <CardText text={downloadLicenseText} />
     </div>

@@ -15,7 +15,7 @@
 }
 
 p {
-  font-size: 18px;
+  font-size: 14px;
   color: rgb(84, 82, 82);
   font-weight: 500;
 }
@@ -35,10 +35,6 @@ p {
   max-width: 900px;
 }
 
-p {
-  font-size: 16px;
-}
-
 .main-container {
   display: flex;
   flex-direction: row;
@@ -51,7 +47,7 @@ p {
 .card {
   display: flex;
   flex-direction: column;
-  max-width: 550px;
+  width: 550px;
 }
 
 .card-text {

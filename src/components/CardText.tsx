@@ -5,7 +5,7 @@ interface CardTextProps {
 }
 
 const CardText: React.FC<CardTextProps> = ({ text }) => {
-  return <p className="card-text">{text}</p>;
+  return <p>{text}</p>;
 };
 
 export default CardText;
