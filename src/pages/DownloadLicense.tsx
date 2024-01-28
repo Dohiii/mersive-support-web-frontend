@@ -173,7 +173,23 @@ export default function DownloadLicense() {
   return (
     <div className="card">
       <h2>Download licenses</h2>
-      <p>Test</p>
+      <p>
+        "Utilize this tool to download one or multiple license files for Mersive
+        Pods running Solstice version 5.5.3 or higher.
+        <br />" "Please enter the Pod Device IDs or Serial Numbers in the input
+        field. You can separate multiple entries using spaces, commas, or
+        semicolons.
+        <br />" "You can choose to save the license files to the root of a FAT32
+        formatted USB flash drive in order to force load them onto the Pods.
+        <br />" "Once saved, insert the drive into the Pod's USB port to
+        force-load the license.
+        <br />" "If multiple Pods are being updated, you can save multiple
+        license files to the same USB drive.
+        <br />" "The USB flash drive MUST be inserted into an already fully
+        powered up Pod.
+        <br />" "If booting up the Pod, DO NOT have the flash drive in it. Wait
+        until you see the standard Pod Welcome screen background."
+      </p>
 
       <div className="input-icons">
         <input
