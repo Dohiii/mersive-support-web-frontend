@@ -15,9 +15,8 @@
 }
 
 p {
-  font-size: 14px;
+  font-size: 12px;
   color: rgb(84, 82, 82);
-  font-weight: 500;
 }
 
 .logo {
@@ -28,7 +27,8 @@ p {
 }
 
 .header-container p {
-  font-size: 20px;
+  font-size: 12px;
+  color: rgb(84, 82, 82);
 }
 .header-container {
   margin-bottom: 2px;
