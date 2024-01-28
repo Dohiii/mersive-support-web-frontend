@@ -187,14 +187,18 @@ export default function DownloadLicense() {
             onOpen={handleOpen}
             title={
               <p style={{ color: "white", fontSize: "small" }}>
-                <h6> Device ID can be retrieved:</h6>
-                <p>
+                <h6 style={{ color: "white", fontSize: "small" }}>
+                  {" "}
+                  Device ID can be retrieved:
+                </h6>
+                <p style={{ color: "white", fontSize: "small" }}>
                   - Solstice Dashboard under the Licensing tab &gt; Device Info.
                 </p>
-                <p>- Solstice Cloud under Monitor &gt; Deployment.</p>
+                <p style={{ color: "white", fontSize: "small" }}>
+                  - Solstice Cloud under Monitor &gt; Deployment.
+                </p>
 
-                <p>
-                  {" "}
+                <p style={{ color: "white", fontSize: "small" }}>
                   - Directly from the Pod’s “Update and Licensing” configuration
                   settings tab
                 </p>
