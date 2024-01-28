@@ -169,14 +169,13 @@ export default function DownloadLicense() {
       return resolve(true);
     });
   };
-
   const deviceInfoText = `
   Device ID can be retrieved:
-
+  
   - Solstice Dashboard under the Licensing tab > Device Info.
   - Solstice Cloud under Monitor > Deployment.
   - Directly from the Pod’s “Update and Licensing” configuration settings tab
-`;
+  `;
 
   return (
     <div className="card">
