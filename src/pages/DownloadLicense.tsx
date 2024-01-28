@@ -205,14 +205,7 @@ export default function DownloadLicense() {
             open={open}
             onClose={handleClose}
             onOpen={handleOpen}
-            title={
-              <p style={{ color: "white", fontSize: "small" }}>
-                "Device ID can be retrieved: - Solstice Dashboard under the
-                Licensing tab &gt; Device Info. - Solstice Cloud under Monitor
-                &gt; Deployment. - Directly from the Pod’s “Update and
-                Licensing” configuration settings tab"
-              </p>
-            }
+            title={<p style={{ color: "white", fontSize: "small" }}></p>}
             placement="top"
           >
             <HelpIcon className={`icon icon-error-${deviceIdsInputError}`} />
